@@ -66,8 +66,16 @@
 
 	<ItemGroup>
 	  <Folder Include="docs\" />
-	  <Folder Include="tests\" />
-	  <Folder Include="src\" />
+	  <Folder Include="src\AppAlarme\Core\Interfaces\" />
+	  <Folder Include="src\AppAlarme\Core\Services\" />
+	  <Folder Include="src\AppAlarme\Infrastructure\Data\" />
+	  <Folder Include="src\AppAlarme\Infrastructure\Notifications\" />
+	  <Folder Include="src\AppAlarme\Infrastructure\Repositories\" />
+	  <Folder Include="src\AppAlarme\Presentation\Resources\" />
+	  <Folder Include="src\AppAlarme\Presentation\ViewsModels\" />
+	  <Folder Include="src\AppAlarme\Presentation\Views\" />
+	  <Folder Include="tests\AppAlarme.Tests\Integration\" />
+	  <Folder Include="tests\AppAlarme.Tests\Unit\" />
 	</ItemGroup>
 
 </Project>
