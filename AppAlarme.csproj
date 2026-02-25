@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
@@ -72,10 +72,20 @@
 	  <Folder Include="src\AppAlarme\Infrastructure\Notifications\" />
 	  <Folder Include="src\AppAlarme\Infrastructure\Repositories\" />
 	  <Folder Include="src\AppAlarme\Presentation\Resources\" />
-	  <Folder Include="src\AppAlarme\Presentation\ViewsModels\" />
-	  <Folder Include="src\AppAlarme\Presentation\Views\" />
 	  <Folder Include="tests\AppAlarme.Tests\Integration\" />
 	  <Folder Include="tests\AppAlarme.Tests\Unit\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="src\AppAlarme\Presentation\Views\AlarmCreatePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="src\AppAlarme\Presentation\Views\AlarmListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="src\AppAlarme\Presentation\Views\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

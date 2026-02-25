@@ -1,15 +1,14 @@
-﻿namespace AppAlarme
+﻿using AppAlarme.src.AppAlarme.Presentation.Views;
+
+namespace AppAlarme
 {
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
-        }
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
+            MainPage = new AlarmListPage();
         }
     }
 }

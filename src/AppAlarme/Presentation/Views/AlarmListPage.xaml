@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppAlarme.src.AppAlarme.Presentation.Views.AlarmListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="AlarmListPage">
+    <StackLayout
+        Padding="20"
+        BackgroundColor="#546bcf"
+        Orientation="Vertical"
+        Spacing="10">
+
+        <Frame
+            Margin="0,30,0,0"
+            Padding="10"
+            BackgroundColor="#d9e0ff"
+            CornerRadius="25"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center">
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Alarmes"
+                    TextColor="#3b4b91"
+                    VerticalOptions="Center" />
+
+                <Button
+                    BackgroundColor="#5A4FCF"
+                    CornerRadius="50"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    HeightRequest="25"
+                    HorizontalOptions="End"
+                    Text="+"
+                    TextColor="White"
+                    WidthRequest="25" 
+                    Padding="0, 0, 0, 1"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame BackgroundColor="#3b4b91"
+               VerticalOptions="FillAndExpand"
+               CornerRadius="25"
+               Padding="10"
+               Margin="0,15,0,0">
+
+            <StackLayout Orientation="Vertical"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                Spacing="10">
+
+                <!-- Lista de alarmes -->
+                <CollectionView ItemsSource="{Binding Alarmes}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="25" Margin="0, 8, 0, 0" BackgroundColor="#d9e0ff">
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Vertical">
+                                        <Label TextColor="#3b4b91" FontAttributes="Bold" FontSize="25" Text="{Binding Horario}" />
+                                        <Label TextColor="#3b4b91" FontSize="12" Text="{Binding Descricao}" />
+                                    </StackLayout>
+                                    <Button Text="{Binding EstadoTexto}"
+                                            TextColor="{Binding CorDoTexto}"
+                                            BackgroundColor="{Binding CorDoBotao}"
+                                            Command="{Binding AlternarEstadoCommand}"
+                                            WidthRequest="60"
+                                            HeightRequest="40"
+                                            CornerRadius="30"
+                                            HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
+                            </Frame>                            
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>              
+            </StackLayout>
+        </Frame>
+
+    </StackLayout>
+</ContentPage>
