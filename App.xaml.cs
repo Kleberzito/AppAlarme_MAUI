@@ -7,8 +7,7 @@ namespace AppAlarme
         public App()
         {
             InitializeComponent();
-
-            MainPage = new AlarmListPage();
+            MainPage = new NavigationPage(new AlarmListPage());
         }
     }
 }

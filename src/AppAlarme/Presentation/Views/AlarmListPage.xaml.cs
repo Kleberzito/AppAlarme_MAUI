@@ -6,7 +6,11 @@ public partial class AlarmListPage : ContentPage
 {
 	public AlarmListPage()
 	{
-		InitializeComponent();
-		BindingContext = new AlarmListViewModel();
+        InitializeComponent();
+        BindingContext = new AlarmListViewModel();
 	}
+    private async void OnOpenCreateClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AlarmCreatePage());
+    }
 }

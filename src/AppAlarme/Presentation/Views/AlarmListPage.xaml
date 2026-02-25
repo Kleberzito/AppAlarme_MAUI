@@ -28,7 +28,9 @@
                     VerticalOptions="Center" />
 
                 <Button
+                    Padding="0,0,0,1"
                     BackgroundColor="#5A4FCF"
+                    Clicked="OnOpenCreateClicked"
                     CornerRadius="50"
                     FontAttributes="Bold"
                     FontSize="20"
@@ -36,45 +38,57 @@
                     HorizontalOptions="End"
                     Text="+"
                     TextColor="White"
-                    WidthRequest="25" 
-                    Padding="0, 0, 0, 1"/>
+                    WidthRequest="25" />
             </StackLayout>
         </Frame>
 
-        <Frame BackgroundColor="#3b4b91"
-               VerticalOptions="FillAndExpand"
-               CornerRadius="25"
-               Padding="10"
-               Margin="0,15,0,0">
+        <Frame
+            Margin="0,15,0,0"
+            Padding="10"
+            BackgroundColor="#3b4b91"
+            CornerRadius="25"
+            VerticalOptions="FillAndExpand">
 
-            <StackLayout Orientation="Vertical"
+            <StackLayout
                 HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                Spacing="10">
+                Orientation="Vertical"
+                Spacing="10"
+                VerticalOptions="FillAndExpand">
 
-                <!-- Lista de alarmes -->
+                <!--  Lista de alarmes  -->
                 <CollectionView ItemsSource="{Binding Alarmes}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame CornerRadius="25" Margin="0, 8, 0, 0" BackgroundColor="#d9e0ff">
+                            <Frame
+                                Margin="0,8,0,0"
+                                BackgroundColor="#d9e0ff"
+                                CornerRadius="25">
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout Orientation="Vertical">
-                                        <Label TextColor="#3b4b91" FontAttributes="Bold" FontSize="25" Text="{Binding Horario}" />
-                                        <Label TextColor="#3b4b91" FontSize="12" Text="{Binding Descricao}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="25"
+                                            Text="{Binding Horario}"
+                                            TextColor="#3b4b91" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding Descricao}"
+                                            TextColor="#3b4b91" />
                                     </StackLayout>
-                                    <Button Text="{Binding EstadoTexto}"
-                                            TextColor="{Binding CorDoTexto}"
-                                            BackgroundColor="{Binding CorDoBotao}"
-                                            Command="{Binding AlternarEstadoCommand}"
-                                            WidthRequest="60"
-                                            HeightRequest="40"
-                                            CornerRadius="30"
-                                            HorizontalOptions="EndAndExpand"/>
+                                    <Button
+                                        BackgroundColor="{Binding CorDoBotao}"
+                                        Command="{Binding AlternarEstadoCommand}"
+                                        CornerRadius="30"
+                                        HeightRequest="40"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding EstadoTexto}"
+                                        TextColor="{Binding CorDoTexto}"
+                                        WidthRequest="60" />
                                 </StackLayout>
-                            </Frame>                            
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                </CollectionView>              
+                </CollectionView>
             </StackLayout>
         </Frame>
 
