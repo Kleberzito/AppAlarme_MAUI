@@ -7,7 +7,10 @@ namespace AppAlarme
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new AlarmListPage());
+            var navPage = new NavigationPage(new AlarmListPage());
+            NavigationPage.SetHasNavigationBar(navPage, false);
+
+            MainPage = navPage;
         }
     }
 }
