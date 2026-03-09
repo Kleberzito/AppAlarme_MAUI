@@ -6,10 +6,10 @@
     Title="AlarmCreatePage"
     NavigationPage.HasNavigationBar="False">
 
-    <VerticalStackLayout BackgroundColor="#546bcf">
+    <VerticalStackLayout BackgroundColor="{StaticResource CorSecundaria}">
         <Grid
             Padding="10"
-            BackgroundColor="#d9e0ff"
+            BackgroundColor="{StaticResource CorFundoClaro}"
             ColumnDefinitions="*,Auto,*">
 
             <Label
@@ -17,30 +17,31 @@
                 FontSize="24"
                 HorizontalOptions="Center"
                 Text="Criar Alarme"
-                TextColor="#3b4b91"
+                TextColor="{StaticResource CorTerciaria}"
                 VerticalOptions="Center" />
 
             <Button
                 Grid.Column="2"
                 Padding="0,0,2,1"
-                BackgroundColor="#5A4FCF"
+                BackgroundColor="{StaticResource CorSecundaria}"
                 Clicked="OnOpenListClicked"
                 CornerRadius="20"
                 FontSize="24"
                 HeightRequest="40"
                 HorizontalOptions="End"
                 Text="◄"
-                TextColor="White"
+                TextColor="{StaticResource CorFundoClaro}"
                 VerticalOptions="Center"
                 WidthRequest="40" />
         </Grid>
 
         <Border
             Margin="10,10,10,0"
-            Background="#6a3093"
-            Stroke="#6a3093"
+            Background="{StaticResource CorTerciaria}"
+            Stroke="{StaticResource CorTerciaria}"
             StrokeShape="RoundRectangle 20,20,0,0"
-            StrokeThickness="1">
+            StrokeThickness="0">
+
             <Grid ColumnDefinitions="Auto,*,Auto,Auto">
                 <Label
                     x:Name="LabelMonth"
@@ -49,7 +50,7 @@
                     FontAttributes="Bold"
                     FontSize="20"
                     HorizontalOptions="Start"
-                    TextColor="White"
+                    TextColor="{StaticResource CorFundoClaro}"
                     VerticalOptions="Center" />
 
                 <Button
@@ -58,7 +59,7 @@
                     FontSize="18"
                     HorizontalOptions="End"
                     Text="▲"
-                    TextColor="White" />
+                    TextColor="{StaticResource CorFundoClaro}" />
 
                 <Button
                     Grid.Column="3"
@@ -66,7 +67,7 @@
                     FontSize="18"
                     HorizontalOptions="End"
                     Text="▼"
-                    TextColor="White" />
+                    TextColor="{StaticResource CorFundoClaro}" />
             </Grid>
         </Border>
 
@@ -74,49 +75,243 @@
             x:Name="HeaderGrid"
             Margin="10,0,10,0"
             Padding="10"
-            BackgroundColor="#F5F5F5"
+            BackgroundColor="{StaticResource CorFundoClaro}"
             ColumnDefinitions="Auto,*,Auto" />
 
         <Border
             Margin="10,0,10,10"
             Padding="0,10,0,10"
-            Background="#6a3093"
-            Stroke="#6a3093"
+            Background="{StaticResource CorTerciaria}"
+            Stroke="{StaticResource CorTerciaria}"
             StrokeShape="RoundRectangle 0,0,20,20"
-            StrokeThickness="1" />
+            StrokeThickness="0" />
 
-        <Grid ColumnDefinitions="*,*,Auto,*,Auto,*" Margin="10">
-            <!--  Label que mostra o horário atual  -->
+        <Border
+            Margin="10,0,10,0"
+            Padding="0,10,0,10"
+            Background="{StaticResource CorFundoClaro}"
+            Stroke="{StaticResource CorFundoClaro}"
+            StrokeShape="RoundRectangle 20,20,0,0"
+            StrokeThickness="0" />
+
+        <Grid
+            Margin="10,0,10,0"
+            BackgroundColor="{StaticResource CorFundoClaro}"
+            ColumnDefinitions="Auto,*,Auto"
+            RowDefinitions="Auto,Auto">
+
             <Label
+                x:Name="AlarmTimeLabel"
+                Grid.Row="0"
+                Grid.Column="0"
+                Padding="10,0,0,0"
+                FontSize="30"
+                TextColor="{StaticResource CorTerciaria}"
+                VerticalOptions="Center" />
+
+            <Button
+                Grid.Row="0"
+                Grid.Column="2"
+                BackgroundColor="{StaticResource CorFundoClaro}"
+                Clicked="OnEditTimeClicked"
+                FontAttributes="Bold"
+                FontSize="30"
+                HorizontalOptions="End"
+                Text="✎"
+                TextColor="{StaticResource CorTerciaria}"
+                VerticalOptions="Center" />
+
+            <TimePicker
+                x:Name="AlarmTimePicker"
+                Grid.Row="0"
+                Grid.Column="2"
+                Background="Transparent"
+                Format="HH:mm"
+                Opacity="0"
+                PropertyChanged="OnTimeChanged"
+                TextColor="Transparent" />
+
+            <Grid
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                Padding="5"
+                ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                ColumnSpacing="5"
+                HorizontalOptions="Center">
+
+                <Button
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource CorPrimaria}"
+                    CornerRadius="10"
+                    HeightRequest="{Binding sizeBox}"
+                    Text="D"
+                    TextColor="{StaticResource CorFundoClaro}"
+                    WidthRequest="{Binding sizeBox}" />
+
+                <Button
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource CorPrimaria}"
+                    CornerRadius="10"
+                    HeightRequest="{Binding sizeBox}"
+                    Text="S"
+                    TextColor="{StaticResource CorFundoClaro}"
+                    WidthRequest="{Binding sizeBox}" />
+
+                <Button
                     Grid.Column="2"
-                    x:Name="AlarmTimeLabel"
-                    FontSize="30"
-                    HorizontalOptions="Center"
-                    Text="00:00"
+                    BackgroundColor="{StaticResource CorPrimaria}"
+                    CornerRadius="10"
+                    HeightRequest="{Binding sizeBox}"
+                    Text="T"
+                    TextColor="{StaticResource CorFundoClaro}"
+                    WidthRequest="{Binding sizeBox}" />
+
+                <Button
+                    Grid.Column="3"
+                    BackgroundColor="{StaticResource CorPrimaria}"
+                    CornerRadius="10"
+                    HeightRequest="{Binding sizeBox}"
+                    Text="Q"
+                    TextColor="{StaticResource CorFundoClaro}"
+                    WidthRequest="{Binding sizeBox}" />
+
+                <Button
+                    Grid.Column="4"
+                    BackgroundColor="{StaticResource CorPrimaria}"
+                    CornerRadius="10"
+                    HeightRequest="{Binding sizeBox}"
+                    Text="Q"
+                    TextColor="{StaticResource CorFundoClaro}"
+                    WidthRequest="{Binding sizeBox}" />
+
+                <Button
+                    Grid.Column="5"
+                    BackgroundColor="{StaticResource CorPrimaria}"
+                    CornerRadius="10"
+                    HeightRequest="{Binding sizeBox}"
+                    Text="S"
+                    TextColor="{StaticResource CorFundoClaro}"
+                    WidthRequest="{Binding sizeBox}" />
+
+                <Button
+                    Grid.Column="6"
+                    BackgroundColor="{StaticResource CorPrimaria}"
+                    CornerRadius="10"
+                    HeightRequest="{Binding sizeBox}"
+                    Text="S"
+                    TextColor="{StaticResource CorFundoClaro}"
+                    WidthRequest="{Binding sizeBox}" />
+            </Grid>
+        </Grid>
+
+
+        <Border
+            Margin="10,0,10,0"
+            Padding="0,10,0,10"
+            Background="{StaticResource CorFundoClaro}"
+            Stroke="{StaticResource CorFundoClaro}"
+            StrokeShape="RoundRectangle 0,0,20,20"
+            StrokeThickness="0" />
+
+        <Border
+            Margin="10,5,10,0"
+            Padding="0,10,0,10"
+            Background="{StaticResource CorFundoClaro}"
+            Stroke="{StaticResource CorFundoClaro}"
+            StrokeShape="RoundRectangle 10"
+            StrokeThickness="0">
+
+            <Grid
+                ColumnDefinitions="Auto,*"
+                HorizontalOptions="FillAndExpand"
+                RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                <!--  Label à esquerda  -->
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    HorizontalOptions="Start"
+                    Text="Titulo do Alarme"
+                    TextColor="{StaticResource CorSecundaria}"
                     VerticalOptions="Center" />
 
-            <!--  Botão para abrir o TimePicker  -->
-            <Button
-                    Grid.Column="4"
-                    FontSize="24"
-                    Clicked="OnEditTimeClicked"
+                <!--  Entry à direita  -->
+                <Entry
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
                     HorizontalOptions="End"
-                    Text="✎"
-                    VerticalOptions="Center" 
-                    Background="Transparent"
-                    FontAttributes="Bold"/>
+                    Placeholder="Alarme..."
+                    TextColor="{StaticResource CorSecundaria}"
+                    VerticalOptions="Center"
+                    WidthRequest="150" />
 
-            <!--  TimePicker escondido  -->
-            <TimePicker x:Name="AlarmTimePicker"
-                        Format="HH:mm"
-                        TextColor="Transparent"
-                        Background="Transparent"
-                        Grid.Column="4"
-                        Opacity="0"
-                        PropertyChanged="OnTimeChanged"/>
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    HorizontalOptions="Start"
+                    Text="Som"
+                    TextColor="{StaticResource CorSecundaria}"
+                    VerticalOptions="Center" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="10,10,0,0"
+                    HorizontalOptions="Start"
+                    Text="Vibrar"
+                    TextColor="{StaticResource CorSecundaria}"
+                    VerticalOptions="Center" />
+
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="10,10,0,0"
+                    HorizontalOptions="Start"
+                    Text="Repetição"
+                    TextColor="{StaticResource CorSecundaria}"
+                    VerticalOptions="Center" />
+
+                <Editor
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource CorFundoClaro}"
+                    FontSize="16"
+                    HeightRequest="70"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Descrição..."
+                    TextColor="{StaticResource CorPrimaria}" />
 
 
-        </Grid>
+
+                <Button
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Margin="10,20,0,0"
+                    BackgroundColor="{StaticResource CorFundoMedio}"
+                    CornerRadius="20"
+                    HeightRequest="{Binding sizeBox}"
+                    HorizontalOptions="Start"
+                    Text="Cancelar"
+                    TextColor="{StaticResource CorSecundaria}"
+                    WidthRequest="100" />
+
+                <Button
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Margin="0,20,10,0"
+                    BackgroundColor="{StaticResource CorPrimaria}"
+                    CornerRadius="20"
+                    HeightRequest="{Binding sizeBox}"
+                    HorizontalOptions="End"
+                    Text="Salvar"
+                    TextColor="{StaticResource CorFundoClaro}"
+                    WidthRequest="100" />
+            </Grid>
+        </Border>
 
     </VerticalStackLayout>
 </ContentPage>
