@@ -6,14 +6,15 @@ namespace AppAlarme.src.AppAlarme.Presentation.Views;
 public partial class AlarmCreatePage : ContentPage
 {
     public DateTime today = DateTime.Now;
+    public int sizeBox = 30;
 
     public AlarmCreatePage()
 	{
-        InitializeComponent();
+        InitializeComponent();        
         OnAppearing();
-
-        AlarmTimeLabel.Text = DateTime.Now.ToString("HH:mm"); // valor inicial
-
+        BindingContext = this;
+        AlarmTimePicker.Time = DateTime.Now.TimeOfDay;
+        AlarmTimeLabel.Text = DateTime.Now.ToString("HH:mm");
         LabelMonth.Text = $"{today.ToString("MMMM", CultureInfo.CurrentCulture)} de {today.Year}"; 
     }
     private async void OnOpenListClicked(object sender, EventArgs e)
