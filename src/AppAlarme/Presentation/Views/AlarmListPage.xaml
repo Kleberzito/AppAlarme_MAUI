@@ -32,7 +32,7 @@
                 <Button
                     Padding="0,0,0,1"
                     BackgroundColor="#5A4FCF"
-                    Clicked="OnOpenCreateClicked"
+                    Command="{Binding AbrirAlarmCreateCommand}"
                     CornerRadius="50"
                     FontAttributes="Bold"
                     FontSize="20"
@@ -63,20 +63,27 @@
                         <DataTemplate>
                             <Frame
                                 Margin="0,8,0,0"
-                                BackgroundColor="#d9e0ff"
+                                BackgroundColor="{StaticResource CorFundoClaro}"
                                 CornerRadius="25">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.AbrirAlarmCreateCommand}" 
+                                        CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout Orientation="Vertical">
                                         <Label
                                             FontAttributes="Bold"
                                             FontSize="25"
                                             Text="{Binding Horario}"
-                                            TextColor="#3b4b91" />
+                                            TextColor="{StaticResource CorTerciaria}" />
                                         <Label
                                             FontSize="12"
                                             Text="{Binding Descricao}"
-                                            TextColor="#3b4b91" />
+                                            TextColor="{StaticResource CorTerciaria}" />
                                     </StackLayout>
+
                                     <Button
                                         BackgroundColor="{Binding CorDoBotao}"
                                         Command="{Binding AlternarEstadoCommand}"
@@ -87,10 +94,12 @@
                                         TextColor="{Binding CorDoTexto}"
                                         WidthRequest="60" />
                                 </StackLayout>
-                            </Frame>
+                            </Frame>                            
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
+                
             </StackLayout>
         </Frame>
 
