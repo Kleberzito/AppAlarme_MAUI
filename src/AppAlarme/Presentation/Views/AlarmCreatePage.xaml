@@ -8,7 +8,7 @@
 
     <VerticalStackLayout BackgroundColor="{StaticResource CorSecundaria}">
         <Grid
-            Padding="5"
+            Padding="10"
             BackgroundColor="{StaticResource CorFundoClaro}"
             ColumnDefinitions="*,Auto,*">
 
@@ -74,7 +74,7 @@
         <Grid
             x:Name="HeaderGrid"
             Margin="10,0,10,0"
-            Padding="5"
+            Padding="10"
             BackgroundColor="{StaticResource CorFundoClaro}"
             ColumnDefinitions="Auto,*,Auto" />
 
@@ -105,7 +105,7 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Padding="10,0,0,0"
-                FontSize="30"                
+                FontSize="30"  
                 TextColor="{StaticResource CorTerciaria}"
                 VerticalOptions="Center" />
 
@@ -126,11 +126,10 @@
                 Grid.Row="0"
                 Grid.Column="2"
                 Background="Transparent"
-                TextColor="Transparent"
                 Format="HH:mm"
                 Opacity="0"
-                PropertyChanged="OnTimeChanged"                
-                Time="{Binding HorarioSelecionado}" />
+                PropertyChanged="OnTimeChanged"
+                TextColor="Transparent" />
 
             <Grid
                 Grid.Row="1"
@@ -142,65 +141,65 @@
 
                 <Button
                     Grid.Column="0"
-                    BackgroundColor="{StaticResource CorFundoMedio}"
+                    BackgroundColor="{StaticResource CorPrimaria}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
                     Text="D"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorFundoClaro}"
                     WidthRequest="{Binding sizeBox}" />
 
                 <Button
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource CorFundoMedio}"
+                    BackgroundColor="{StaticResource CorPrimaria}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
                     Text="S"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorFundoClaro}"
                     WidthRequest="{Binding sizeBox}" />
 
                 <Button
                     Grid.Column="2"
-                    BackgroundColor="{StaticResource CorFundoMedio}"
+                    BackgroundColor="{StaticResource CorPrimaria}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
                     Text="T"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorFundoClaro}"
                     WidthRequest="{Binding sizeBox}" />
 
                 <Button
                     Grid.Column="3"
-                    BackgroundColor="{StaticResource CorFundoMedio}"
+                    BackgroundColor="{StaticResource CorPrimaria}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
                     Text="Q"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorFundoClaro}"
                     WidthRequest="{Binding sizeBox}" />
 
                 <Button
                     Grid.Column="4"
-                    BackgroundColor="{StaticResource CorFundoMedio}"
+                    BackgroundColor="{StaticResource CorPrimaria}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
                     Text="Q"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorFundoClaro}"
                     WidthRequest="{Binding sizeBox}" />
 
                 <Button
                     Grid.Column="5"
-                    BackgroundColor="{StaticResource CorFundoMedio}"
+                    BackgroundColor="{StaticResource CorPrimaria}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
                     Text="S"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorFundoClaro}"
                     WidthRequest="{Binding sizeBox}" />
 
                 <Button
                     Grid.Column="6"
-                    BackgroundColor="{StaticResource CorFundoMedio}"
+                    BackgroundColor="{StaticResource CorPrimaria}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
                     Text="S"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorFundoClaro}"
                     WidthRequest="{Binding sizeBox}" />
             </Grid>
         </Grid>
@@ -233,16 +232,16 @@
                     Margin="10,0,0,0"
                     HorizontalOptions="Start"
                     Text="Titulo do Alarme"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorSecundaria}"
                     VerticalOptions="Center" />
-
+                
                 <Entry
                     Grid.Row="0"
                     Grid.Column="1"
                     Margin="0,0,10,0"
                     HorizontalOptions="End"
                     Placeholder="Alarme..."
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorSecundaria}"
                     VerticalOptions="Center"
                     WidthRequest="150" />
 
@@ -252,8 +251,38 @@
                     Margin="10,0,0,0"
                     HorizontalOptions="Start"
                     Text="Som"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorSecundaria}"
                     VerticalOptions="Center" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="10,10,0,0"
+                    HorizontalOptions="Start"
+                    Text="Vibrar"
+                    TextColor="{StaticResource CorSecundaria}"
+                    VerticalOptions="Center" />
+
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="10,10,0,0"
+                    HorizontalOptions="Start"
+                    Text="Repetição"
+                    TextColor="{StaticResource CorSecundaria}"
+                    VerticalOptions="Center" />
+
+                <Editor
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="10,0,10,0"
+                    BackgroundColor="{StaticResource CorFundoClaro}"
+                    FontSize="16"
+                    HeightRequest="70"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Descrição..."
+                    TextColor="{StaticResource CorPrimaria}" />
 
                 <Label
                     Grid.Row="2"
@@ -264,53 +293,23 @@
                     TextColor="{StaticResource CorTerciaria}"
                     VerticalOptions="Center" />
 
-                <Label
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Margin="10,10,0,0"
-                    HorizontalOptions="Start"
-                    Text="Repetição"
-                    TextColor="{StaticResource CorTerciaria}"
-                    VerticalOptions="Center" />
-
-                <Border
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="10,5,10,0"
-                    BackgroundColor="{StaticResource White}"
-                    HorizontalOptions="FillAndExpand"
-                    StrokeShape="RoundRectangle 12"
-                    StrokeThickness="0">
-
-                    <Editor
-                        Margin="2"
-                        BackgroundColor="Transparent"
-                        FontSize="16"
-                        HeightRequest="70"
-                        HorizontalOptions="FillAndExpand"
-                        Placeholder="Descrição..."
-                        TextColor="{StaticResource CorTerciaria}" />
-                </Border>
-
                 <Button
                     Grid.Row="5"
                     Grid.Column="0"
-                    Margin="10,5,0,0"
+                    Margin="10,20,0,0"
                     BackgroundColor="{StaticResource CorFundoMedio}"
                     CornerRadius="20"
                     HeightRequest="{Binding sizeBox}"
                     HorizontalOptions="Start"
                     Text="Cancelar"
-                    TextColor="{StaticResource CorTerciaria}"
+                    TextColor="{StaticResource CorSecundaria}"
                     WidthRequest="100" />
 
                 <Button
                     Grid.Row="5"
                     Grid.Column="1"
-                    Margin="0,5,10,0"
-                    BackgroundColor="{StaticResource CorTerciaria}"
-                    Clicked="OnSalvarClicked"                    
+                    Margin="0,20,10,0"
+                    BackgroundColor="{StaticResource CorPrimaria}"
                     CornerRadius="20"
                     HeightRequest="{Binding sizeBox}"
                     HorizontalOptions="End"
