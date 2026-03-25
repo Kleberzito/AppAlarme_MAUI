@@ -80,7 +80,11 @@
                                             TextColor="{StaticResource CorTerciaria}" />
                                         <Label
                                             FontSize="12"
-                                            Text="{Binding Descricao}"
+                                            Text="{Binding NomeAlerta}"
+                                            TextColor="{StaticResource CorTerciaria}" />
+                                        <Label 
+                                            FontSize="12"
+                                            Text="{Binding StrWeek}" 
                                             TextColor="{StaticResource CorTerciaria}" />
                                     </StackLayout>
 

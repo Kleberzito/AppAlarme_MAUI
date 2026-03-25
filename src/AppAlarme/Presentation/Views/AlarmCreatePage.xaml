@@ -141,66 +141,73 @@
 
                 <Button
                     Grid.Column="0"
-                    BackgroundColor="{StaticResource CorPrimaria}"
+                    BackgroundColor="{StaticResource CorFundoMedio}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
-                    Text="D"
-                    TextColor="{StaticResource CorFundoClaro}"
-                    WidthRequest="{Binding sizeBox}" />
+                    Text="Dom"
+                    TextColor="{StaticResource CorPrimaria}"
+                    WidthRequest="{Binding sizeBox}" 
+                    Clicked="OnDiaSemanaClicked"/>
 
                 <Button
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource CorPrimaria}"
+                    BackgroundColor="{StaticResource CorFundoMedio}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
-                    Text="S"
-                    TextColor="{StaticResource CorFundoClaro}"
-                    WidthRequest="{Binding sizeBox}" />
+                    Text="Seg"
+                    TextColor="{StaticResource CorPrimaria}"
+                    WidthRequest="{Binding sizeBox}" 
+                    Clicked="OnDiaSemanaClicked"/>
 
                 <Button
                     Grid.Column="2"
-                    BackgroundColor="{StaticResource CorPrimaria}"
+                    BackgroundColor="{StaticResource CorFundoMedio}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
-                    Text="T"
-                    TextColor="{StaticResource CorFundoClaro}"
-                    WidthRequest="{Binding sizeBox}" />
+                    Text="Ter"
+                    TextColor="{StaticResource CorPrimaria}"
+                    WidthRequest="{Binding sizeBox}" 
+                    Clicked="OnDiaSemanaClicked"/>
 
                 <Button
                     Grid.Column="3"
-                    BackgroundColor="{StaticResource CorPrimaria}"
+                    BackgroundColor="{StaticResource CorFundoMedio}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
-                    Text="Q"
-                    TextColor="{StaticResource CorFundoClaro}"
-                    WidthRequest="{Binding sizeBox}" />
+                    Text="Qua"
+                    TextColor="{StaticResource CorPrimaria}"
+                    WidthRequest="{Binding sizeBox}" 
+                    Clicked="OnDiaSemanaClicked"/>
 
                 <Button
                     Grid.Column="4"
-                    BackgroundColor="{StaticResource CorPrimaria}"
+                    BackgroundColor="{StaticResource CorFundoMedio}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
-                    Text="Q"
-                    TextColor="{StaticResource CorFundoClaro}"
-                    WidthRequest="{Binding sizeBox}" />
+                    Text="Qui"
+                    TextColor="{StaticResource CorPrimaria}"
+                    WidthRequest="{Binding sizeBox}" 
+                    Clicked="OnDiaSemanaClicked"/>
 
                 <Button
                     Grid.Column="5"
-                    BackgroundColor="{StaticResource CorPrimaria}"
+                    BackgroundColor="{StaticResource CorFundoMedio}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
-                    Text="S"
-                    TextColor="{StaticResource CorFundoClaro}"
-                    WidthRequest="{Binding sizeBox}" />
+                    Text="Sex"
+                    TextColor="{StaticResource CorPrimaria}"
+                    WidthRequest="{Binding sizeBox}" 
+                    Clicked="OnDiaSemanaClicked"/>
 
                 <Button
                     Grid.Column="6"
-                    BackgroundColor="{StaticResource CorPrimaria}"
+                    BackgroundColor="{StaticResource CorFundoMedio}"
                     CornerRadius="10"
                     HeightRequest="{Binding sizeBox}"
-                    Text="S"
-                    TextColor="{StaticResource CorFundoClaro}"
-                    WidthRequest="{Binding sizeBox}" />
+                    Text="Sáb"
+                    TextColor="{StaticResource CorPrimaria}"
+                    WidthRequest="{Binding sizeBox}"
+                    Clicked="OnDiaSemanaClicked"/>
             </Grid>
         </Grid>
 
@@ -241,6 +248,7 @@
                     Margin="0,0,10,0"
                     HorizontalOptions="End"
                     Placeholder="Alarme..."
+                    Text="{Binding nomeAlerta}"
                     TextColor="{StaticResource CorSecundaria}"
                     VerticalOptions="Center"
                     WidthRequest="150" />
@@ -315,7 +323,8 @@
                     HorizontalOptions="End"
                     Text="Salvar"
                     TextColor="{StaticResource CorFundoClaro}"
-                    WidthRequest="100" />
+                    WidthRequest="100" 
+                    Clicked="OnSalvarClicked"/>
             </Grid>
         </Border>
 

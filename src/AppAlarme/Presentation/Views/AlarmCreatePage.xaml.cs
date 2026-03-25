@@ -1,16 +1,32 @@
+Ôªøusing AppAlarme.src.AppAlarme.Presentation.Enums;
 using AppAlarme.src.AppAlarme.Presentation.ViewsModels;
 using Microsoft.Maui.Graphics.Text;
 using System.Globalization;
+using System.Security.Cryptography;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace AppAlarme.src.AppAlarme.Presentation.Views;
 
 public partial class AlarmCreatePage : ContentPage
 {
+    public string nomeAlerta;
     public DateTime today = DateTime.Now;
     public int SizeBox { get; set; } = 30;
     private List<Button> _selectedButtons = new List<Button>();
-    private AlarmListViewModel _listViewModel;
+    private AlarmListViewModel _listViewModel;   
+    private AlarmViewModel _novoAlarme;
+    private int _listDay = 0;
+    private List<string> _strWeek { get; set; } = new List<string>();
+    private static readonly Dictionary<string, DayOfWeek> DiasSemanaMap = new()
+        {
+            { "Dom", DayOfWeek.Sunday },
+            { "Seg", DayOfWeek.Monday },
+            { "Ter", DayOfWeek.Tuesday },
+            { "Qua", DayOfWeek.Wednesday },
+            { "Qui", DayOfWeek.Thursday },
+            { "Sex", DayOfWeek.Friday },
+            { "S√°b", DayOfWeek.Saturday }
+        };
 
     public AlarmCreatePage(AlarmListViewModel listViewModel)
     {
@@ -18,11 +34,13 @@ public partial class AlarmCreatePage : ContentPage
         {
             InitializeComponent();
             _listViewModel = listViewModel;
-            BindingContext = this;
+            _novoAlarme = new AlarmViewModel();
+            BindingContext = _novoAlarme;
+
         }
         catch (Exception ex)
         {
-            // Isso exibir· a mensagem de erro em um alerta (se possÌvel) ou no console
+            // Isso exibir√° a mensagem de erro em um alerta (se poss√≠vel) ou no console
             System.Diagnostics.Debug.WriteLine($"ERRO: {ex}");
             throw; 
         }
@@ -37,55 +55,53 @@ public partial class AlarmCreatePage : ContentPage
     {
         try
         {
-            // Verifica o ViewModel da lista
-            if (_listViewModel == null)
+            if (_listViewModel == null || _listViewModel.Alarmes == null)
             {
-                await DisplayAlert("Erro", "ViewModel da lista n„o recebido.", "OK");
+                await DisplayAlert("Erro", "Lista de alarmes n√£o dispon√≠vel.", "OK");
                 return;
             }
 
-            // Verifica a coleÁ„o de alarmes
-            if (_listViewModel.Alarmes == null)
-            {
-                await DisplayAlert("Erro", "A lista de alarmes n„o foi inicializada no ViewModel.", "OK");
-                return;
-            }
-
-            // Verifica o controle de tempo
             if (AlarmTimePicker == null)
             {
-                await DisplayAlert("Erro", "Controle de hor·rio n„o encontrado.", "OK");
+                await DisplayAlert("Erro", "Controle de hor√°rio n√£o encontrado.", "OK");
                 return;
             }
-
-            var novoAlarme = new AlarmViewModel
+            
+            _novoAlarme.HorarioSelecionado = AlarmTimePicker.Time;
+            _novoAlarme.Horario = AlarmTimePicker.Time.ToString(@"hh\:mm");
+            
+            if (_novoAlarme.DOWeek.Count == 0)
             {
-                Descricao = "Novo Alarme", // Se tiver um Entry, use Entry.Text
-                Horario = AlarmTimePicker.Time.ToString(@"hh\:mm"),
-                Status = false
-            };
-
-            _listViewModel.Alarmes.Add(novoAlarme);
-
-            // Verifica a navegaÁ„o
-            if (Navigation == null)
-            {
-                await DisplayAlert("Erro", "NavegaÁ„o indisponÌvel.", "OK");
-                return;
+                _novoAlarme.Status = false;                
             }
+            else
+            {
+                _novoAlarme.Status = true;
+            }
+
+            if (_listDay == 7)
+                _novoAlarme.Repeat = typeRepeat.Daily;
+            else if (_listDay > 0)
+                _novoAlarme.Repeat = typeRepeat.Weekly;
+            else
+                _novoAlarme.Repeat = typeRepeat.None;
+
+            _novoAlarme.NomeAlerta = nomeAlerta.ToString();
+
+            _listViewModel.Alarmes.Add(_novoAlarme);
 
             await Navigation.PopAsync();
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Erro", $"ExceÁ„o: {ex.Message}\n{ex.StackTrace}", "OK");
+            await DisplayAlert("Erro", $"Exce√ß√£o: {ex.Message}\n{ex.StackTrace}", "OK");
         }
     }
     protected override void OnAppearing()
     {
         base.OnAppearing();
         InicializarControles();
-        OpenCalendar(today);
+        CreateCalendar(today);
     }
 
     private void InicializarControles()
@@ -95,7 +111,7 @@ public partial class AlarmCreatePage : ContentPage
         LabelMonth.Text = $"{DateTime.Today.ToString("MMMM", CultureInfo.CurrentCulture)} de {DateTime.Today.Year}";
     }
 
-    private void OpenCalendar(DateTime today)
+    private void CreateCalendar(DateTime today)
     {        
         int nDaysMonth = DateTime.DaysInMonth(today.Year, today.Month);
         DateTime dayFirst = new DateTime(today.Year, today.Month, 1);        
@@ -122,15 +138,15 @@ public partial class AlarmCreatePage : ContentPage
 
                 if (_selectedButtons.Contains(btn))
                 {
-                    // Se j· estava selecionado, desmarca
-                    btn.BackgroundColor = Colors.Transparent;
+                    // Se j√° estava selecionado, desmarca                  
+                    btn.BackgroundColor = Color.FromArgb("#D9E0FF");
                     btn.TextColor = Color.FromArgb("#3B4B91");
                     _selectedButtons.Remove(btn);
                 }
                 else
                 {
-                    // Marca e adiciona na lista
-                    btn.BackgroundColor = Color.FromArgb("#3B4B91");
+                    // Marca e adiciona na lista                    
+                    btn.BackgroundColor = Color.FromArgb("#546BCF");
                     btn.TextColor = Color.FromArgb("#D9E0FF");
                     _selectedButtons.Add(btn);
                 }
@@ -145,7 +161,6 @@ public partial class AlarmCreatePage : ContentPage
         }
     }
 
-    // Quando clicar em "Editar"
     private void OnEditTimeClicked(object sender, EventArgs e)
     {
         AlarmTimePicker.Focus();
@@ -155,6 +170,43 @@ public partial class AlarmCreatePage : ContentPage
     {
         if (e.PropertyName == "Time")
             AlarmTimeLabel.Text = AlarmTimePicker.Time.ToString(@"hh\:mm");
+    }
+
+    private void OnDiaSemanaClicked(object sender, EventArgs e)
+    {        
+        try
+        {
+            if (sender is Button btn && _novoAlarme != null)
+            {
+                if (!DiasSemanaMap.TryGetValue(btn.Text, out var dia))
+                {
+                    DisplayAlert("Erro", $"Dia inv√°lido: {btn.Text}", "OK");
+                    return;
+                }
+
+                if (_novoAlarme.DOWeek.Contains(dia))
+                {
+                    _strWeek.Remove(btn.Text);
+                    _novoAlarme.DOWeek.Remove(dia);
+                    _listDay--;
+                    btn.BackgroundColor = Colors.Transparent;
+                    btn.TextColor = Color.FromArgb("#3B4B91");
+                }
+                else
+                {
+                    _strWeek.Add(btn.Text);
+                    _novoAlarme.DOWeek.Add(dia);
+                    _listDay++;
+                    btn.BackgroundColor = Color.FromArgb("#546BCF");
+                    btn.TextColor = Color.FromArgb("#D9E0FF");
+                }  
+            }
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Erro", $"Falha ao processar sele√ß√£o do dia: {ex.Message}", "OK");
+            System.Diagnostics.Debug.WriteLine($"[OnDiaSemanaClicked] ERRO: {ex}");
+        }
     }
 }
 
