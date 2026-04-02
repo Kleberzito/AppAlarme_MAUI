@@ -67,7 +67,7 @@
                                 CornerRadius="25">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.AbrirAlarmCreateCommand}" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.AbrirAlarmEditCommand}" 
                                         CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
 

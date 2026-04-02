@@ -248,7 +248,7 @@
                     Margin="0,0,10,0"
                     HorizontalOptions="End"
                     Placeholder="Alarme..."
-                    Text="{Binding nomeAlerta}"
+                    Text="{Binding NomeAlerta}"
                     TextColor="{StaticResource CorSecundaria}"
                     VerticalOptions="Center"
                     WidthRequest="150" />
@@ -309,7 +309,8 @@
                     CornerRadius="20"
                     HeightRequest="{Binding sizeBox}"
                     HorizontalOptions="Start"
-                    Text="Cancelar"
+                    Text="{Binding BotaoAcaoTexto}"
+                    Command="{Binding BotaoAcaoCommand}"
                     TextColor="{StaticResource CorSecundaria}"
                     WidthRequest="100" />
 

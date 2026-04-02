@@ -34,8 +34,7 @@ namespace AppAlarme.src.AppAlarme.Presentation.ViewsModels
                     _ => ""
                 }));
             }
-        }
-
+        }  
 
         // 🔹 Propriedades públicas com encapsulamento
         public string Descricao

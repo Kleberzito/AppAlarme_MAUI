@@ -12,10 +12,11 @@ namespace AppAlarme.src.AppAlarme.Presentation.ViewsModels
 
         public ICommand AbrirAlarmCreateCommand { get; }
         public ICommand SalvarAlarmeCommand { get; }
+        public ICommand AbrirAlarmEditCommand { get; }
+        public ICommand ExcluirAlarmeCommand { get; }
 
         public AlarmListViewModel()
         {
-           
             Alarmes = new ObservableCollection<AlarmViewModel>();
 
             var exemploAlarme = new AlarmViewModel
@@ -26,7 +27,7 @@ namespace AppAlarme.src.AppAlarme.Presentation.ViewsModels
                 HorarioSelecionado = DateTime.Now.AddMinutes(5).TimeOfDay,
                 Status = true,
                 Repeat = typeRepeat.Weekly,
-                DOWeek = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Wednesday, DayOfWeek.Friday },                
+                DOWeek = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Wednesday, DayOfWeek.Friday },
             };
 
             Alarmes.Add(exemploAlarme);
@@ -36,6 +37,19 @@ namespace AppAlarme.src.AppAlarme.Presentation.ViewsModels
                 await Application.Current.MainPage.Navigation.PushAsync(new AlarmCreatePage(this));
             });
 
+            AbrirAlarmEditCommand = new Command<AlarmViewModel>(async (alarmeSelecionado) =>
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new AlarmCreatePage(this, alarmeSelecionado));
+            });
+
+            ExcluirAlarmeCommand = new Command<AlarmViewModel>(async (alarmeSelecionado) =>
+            {
+                if (alarmeSelecionado != null && Alarmes.Contains(alarmeSelecionado))
+                {
+                    Alarmes.Remove(alarmeSelecionado);
+                    await Application.Current.MainPage.Navigation.PopAsync(); // volta para a lista
+                }
+            });
         }
     }
 }

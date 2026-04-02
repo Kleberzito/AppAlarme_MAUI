@@ -3,6 +3,7 @@ using AppAlarme.src.AppAlarme.Presentation.ViewsModels;
 using Microsoft.Maui.Graphics.Text;
 using System.Globalization;
 using System.Security.Cryptography;
+using System.Windows.Input;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace AppAlarme.src.AppAlarme.Presentation.Views;
@@ -16,6 +17,8 @@ public partial class AlarmCreatePage : ContentPage
     private AlarmListViewModel _listViewModel;   
     private AlarmViewModel _novoAlarme;
     private int _listDay = 0;
+    private bool _isEditing;
+
     private List<string> _strWeek { get; set; } = new List<string>();
     private static readonly Dictionary<string, DayOfWeek> DiasSemanaMap = new()
         {
@@ -26,24 +29,47 @@ public partial class AlarmCreatePage : ContentPage
             { "Qui", DayOfWeek.Thursday },
             { "Sex", DayOfWeek.Friday },
             { "Sáb", DayOfWeek.Saturday }
-        };
+        };    
 
-    public AlarmCreatePage(AlarmListViewModel listViewModel)
+    public string BotaoAcaoTexto => _isEditing ? "Excluir" : "Cancelar";
+
+    public ICommand BotaoAcaoCommand => _isEditing
+        ? new Command(async () =>
+        {
+            _listViewModel.Alarmes.Remove(_novoAlarme);
+            await Navigation.PopAsync();
+        })
+        : new Command(async () =>
+        {
+            await Navigation.PopAsync(); // apenas volta sem salvar
+        });
+
+    public AlarmCreatePage(AlarmListViewModel listViewModel, AlarmViewModel alarmeExistente = null)
     {
         try
         {
             InitializeComponent();
             _listViewModel = listViewModel;
-            _novoAlarme = new AlarmViewModel();
-            BindingContext = _novoAlarme;
 
+            if (alarmeExistente != null)
+            {
+                _novoAlarme = alarmeExistente; // edição
+                _isEditing = true;
+            }
+            else
+            {
+                _novoAlarme = new AlarmViewModel(); // criação
+                _isEditing = false;
+            }
         }
         catch (Exception ex)
         {
             // Isso exibirá a mensagem de erro em um alerta (se possível) ou no console
             System.Diagnostics.Debug.WriteLine($"ERRO: {ex}");
-            throw; 
+            throw;
         }
+
+        BindingContext = this; // aqui o contexto é a própria página
     }
 
     private async void OnOpenListClicked(object sender, EventArgs e)
@@ -66,29 +92,23 @@ public partial class AlarmCreatePage : ContentPage
                 await DisplayAlert("Erro", "Controle de horário não encontrado.", "OK");
                 return;
             }
-            
+
             _novoAlarme.HorarioSelecionado = AlarmTimePicker.Time;
             _novoAlarme.Horario = AlarmTimePicker.Time.ToString(@"hh\:mm");
-            
-            if (_novoAlarme.DOWeek.Count == 0)
-            {
-                _novoAlarme.Status = false;                
-            }
-            else
-            {
-                _novoAlarme.Status = true;
-            }
 
-            if (_listDay == 7)
+            _novoAlarme.Status = _novoAlarme.DOWeek.Count > 0;
+
+            if (_novoAlarme.DOWeek.Count == 7)
                 _novoAlarme.Repeat = typeRepeat.Daily;
-            else if (_listDay > 0)
+            else if (_novoAlarme.DOWeek.Count > 0)
                 _novoAlarme.Repeat = typeRepeat.Weekly;
             else
-                _novoAlarme.Repeat = typeRepeat.None;
+                _novoAlarme.Repeat = typeRepeat.None;            
 
-            _novoAlarme.NomeAlerta = nomeAlerta.ToString();
-
-            _listViewModel.Alarmes.Add(_novoAlarme);
+            if (!_listViewModel.Alarmes.Contains(_novoAlarme))
+            {
+                _listViewModel.Alarmes.Add(_novoAlarme); // só adiciona se for novo
+            }
 
             await Navigation.PopAsync();
         }
@@ -97,6 +117,7 @@ public partial class AlarmCreatePage : ContentPage
             await DisplayAlert("Erro", $"Exceção: {ex.Message}\n{ex.StackTrace}", "OK");
         }
     }
+
     protected override void OnAppearing()
     {
         base.OnAppearing();
@@ -129,11 +150,11 @@ public partial class AlarmCreatePage : ContentPage
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
                 TextColor = Color.FromArgb("#3B4B91"),
-                BackgroundColor = Colors.Transparent
+                BackgroundColor = Colors.Transparent,
             };
 
             button.Clicked += (s, e) =>
-            {
+            { 
                 var btn = (Button)s;
 
                 if (_selectedButtons.Contains(btn))
@@ -189,7 +210,7 @@ public partial class AlarmCreatePage : ContentPage
                     _strWeek.Remove(btn.Text);
                     _novoAlarme.DOWeek.Remove(dia);
                     _listDay--;
-                    btn.BackgroundColor = Colors.Transparent;
+                    btn.BackgroundColor = Color.FromArgb("#B3C1FF");
                     btn.TextColor = Color.FromArgb("#3B4B91");
                 }
                 else
@@ -207,6 +228,6 @@ public partial class AlarmCreatePage : ContentPage
             DisplayAlert("Erro", $"Falha ao processar seleção do dia: {ex.Message}", "OK");
             System.Diagnostics.Debug.WriteLine($"[OnDiaSemanaClicked] ERRO: {ex}");
         }
-    }
+    }    
 }
 
